@@ -6,64 +6,65 @@
 | --------------------- | --------| ----------- |
 | nickname              | string  | null: false |
 | email                 | string  | null: false, unique: true |
-| password              | string  | null: false |
-| password-confirmation | string  | null: false |
-| last-name             | string  | null: false |
-| first-name            | string  | null: false |
-| last-name-kana        | string  | null: false |
-| first-name-kana       | string  | null: false |
-| user-birth-date1      | integer | null: false |
-| user-birth-date2      | integer | null: false |
-| user-birth-date3      | integer | null: false |
+| encrypted_password    | string  | null: false |
+| last_name             | string  | null: false |
+| first_name            | string  | null: false |
+| last_name_kana        | string  | null: false |
+| first_name_kana       | string  | null: false |
+| birth_day             | date    | null: false |
 
 ### Association
 
 - has_many :items
+- has_one  :purchases
 
 ## items テーブル
 
-| Column                   | Type    | Options     |
-| ------------------------ | ------- | ----------- |
-| item-name                | string  | null: false |
-| item-info                | text    | null: false |
-| item-category            | string  | null: false |
-| item-sales-status        | string  | null: false |
-| item-shopping-fee-status | string  | null: false |
-| item-prefecture          | string  | null: false |
-| item-scheduled-delivery  | string  | null: false |
-| item-price               | integer | null: false |
-| add-tax-price            | integer | null: false |
-| profit                   | integer | null: false |
-| user_id                  | string  | null: false, foreign_key: true|
+| Column                      | Type    | Options     |
+| --------------------------- | ------- | ----------- |
+| item_name                   | string  | null: false |
+| item_info                   | text    | null: false |
+| item_category_id            | integer | null: false |
+| item_sales-status_id        | integer | null: false |
+| item_shopping-fee-status_id | integer | null: false |
+| item_prefecture_id          | integer | null: false |
+| item_scheduled-delivery_id  | integer | null: false |
+| item_price                  | integer | null: false |
+| add_tax_price               | integer | null: false |
+| profit                      | integer | null: false |
+| user_id                     | string  | null: false, foreign_key: true|
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
+- has_one  :purchases
 
 
 ## purchases テーブル
 
 | Column     | Type    | Options     |
 | ---------- | ------- | ----------- |
-| buyer      | strings | null: false |
-| item-order | strings | null: false |
+| user_id    | integer | null: false, foreign_key: true|
+| item_id    | integer | null: false, foreign_key: true|
 
 ### Association
 
 - has_one :shipments
+- belongs_to :user
+- belongs_to :item
 
-## messages テーブル
+## shipments テーブル
 
-| Column       | Type    | Options     |
-| ------------ | ------- | ----------- |
-| post-code    | integer |             |
-| prefecture   | string  | null: false |
-| city         | string  | null: false |
-| addresses    | string  | null: false |
-| building     | string  | null: false |
-| phone-number | integer | null: false |
-| purchases_id | string  | null: false, foreign_key: true |
+| Column        | Type    | Options     |
+| ------------- | ------- | ----------- |
+| post_code_id  | integer |             |
+| prefecture_id | integer | null: false |
+| city          | string  | null: false |
+| addresses     | string  | null: false |
+| building      | string  | null: false |
+| phone-number  | string  | null: false |
+| purchases_id  | string  | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :purchases
+- belongs_to :purchase
