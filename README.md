@@ -25,12 +25,12 @@
 | item_name                   | string      | null: false |
 | item_info                   | text        | null: false |
 | item_category_id            | integer     | null: false |
-| item_sales-status_id        | integer     | null: false |
+| item_sales_status_id        | integer     | null: false |
 | item_shopping_fee_status_id | integer     | null: false |
 | prefecture_id               | integer     | null: false |
 | item_scheduled_delivery_id  | integer     | null: false |
 | item_price                  | integer     | null: false |
-| user_id                     | references  | null: false, foreign_key: true|
+| user                        | references  | null: false, foreign_key: true|
 
 ### Association
 
@@ -42,8 +42,8 @@
 
 | Column     | Type        | Options     |
 | ---------- | ----------- | ----------- |
-| user_id    | references  | null: false, foreign_key: true|
-| item_id    | references  | null: false, foreign_key: true|
+| user       | references  | null: false, foreign_key: true|
+| item       | references  | null: false, foreign_key: true|
 ### Association
 
 - has_one :shipment
@@ -52,15 +52,15 @@
 
 ## shipments テーブル
 
-| Column        | Type    | Options     |
-| ------------- | ------- | ----------- |
-| post_code     | string  | null: false |
-| prefecture_id | integer | null: false |
-| city          | string  | null: false |
-| addresses     | string  | null: false |
-| building      | string  |             |
-| phone-number  | string  | null: false |
-| purchases_id  | string  | null: false, foreign_key: true |
+| Column        | Type        | Options     |
+| ------------- | ----------- | ----------- |
+| post_code     | string      | null: false |
+| prefecture_id | integer     | null: false |
+| city          | string      | null: false |
+| addresses     | string      | null: false |
+| building      | string      |             |
+| phone_number  | string      | null: false |
+| purchases     | references  | null: false, foreign_key: true |
 
 ### Association
 
