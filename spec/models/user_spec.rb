@@ -60,13 +60,13 @@ RSpec.describe User, type: :model do
         @user.password_confirmation = 'パスワード123'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid. Include both letters and numbers')
-        end
+      end
       it 'passwordとpassword_confirmationが一致しないと登録できない' do
         @user.password = 'password123'
         @user.password_confirmation = 'password456'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
-      end          
+      end
       it 'last_nameが空では登録できない' do
         @user.last_name = ''
         @user.valid?
