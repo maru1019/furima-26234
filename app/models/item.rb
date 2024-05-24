@@ -12,6 +12,9 @@ class Item < ApplicationRecord
 
   validates :image, :item_name, :item_info, :item_price, presence: true
   validates :item_price, numericality: { only_integer: true, message: 'is not a number'}
+  validates :item_price, numericality: { greater_than_or_equal_to: 300, message: "must be greater than or equal to 300" }
+  validates :item_price, numericality: { less_than_or_equal_to: 9999999, message: "must be less than or equal to 9999999" }
   validates :item_category_id, :item_sales_status_id, :item_shopping_fee_status_id, :prefecture_id, :item_scheduled_delivery_id, numericality: { other_than: 1 , message: "can't be blank"}
   
+
 end
