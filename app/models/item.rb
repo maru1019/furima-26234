@@ -14,6 +14,7 @@ class Item < ApplicationRecord
   validates :item_price, numericality: { greater_than_or_equal_to: 300, message: 'must be greater than or equal to 300' }
   validates :item_price, numericality: { less_than_or_equal_to: 9_999_999, message: 'must be less than or equal to 9999999' }
   with_options numericality: { other_than: 0, message: "can't be blank" } do
-    validates :item_category.name, :item_sales_status.name, :item_shopping_fee_status, :prefecture.name, :item_scheduled_delivery.name
+    validates :item_category.name, :item_sales_status.name, :item_shopping_fee_status, :prefecture.name,
+              :item_scheduled_delivery.name
   end
 end

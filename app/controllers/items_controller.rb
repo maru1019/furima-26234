@@ -2,9 +2,8 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
   before_action :set_item, only: [:show, :edit, :update]
 
-
   def index
-    @items = Item.order("created_at DESC")
+    @items = Item.order('created_at DESC')
   end
 
   def new
@@ -24,14 +23,14 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if !user_signed_in? || @item.user_id != current_user.id #|| @item.sold_out?
-      redirect_to root_path
-    end
+    return unless !user_signed_in? || @item.user_id != current_user.id # || @item.sold_out?
+
+    redirect_to root_path
   end
 
   def update
     if @item.update(item_params)
-     redirect_to item_path(@item)
+      redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
     end
