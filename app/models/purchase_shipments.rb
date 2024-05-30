@@ -11,6 +11,14 @@ class PurchaseShipments
   validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'is invalid. Enter it as follows (e.g. 123-4567)' }
 
   def save
-    
+    purchases = Purchases.create(item_id: item_id, user_id: user_id)
+    Shipments.create(
+      post_code: post_code,
+      prefecture_id: prefecture_id,
+      city: city,
+      addresses: addresses,
+      building: building,
+      phone_number: phone_number,
+      )
   end
 end
