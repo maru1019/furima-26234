@@ -40,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_053028) do
   end
 
   create_table "items", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.string "item_name", null: false
     t.text "item_info", null: false
     t.integer "item_category_id", null: false
@@ -48,7 +49,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_053028) do
     t.integer "prefecture_id", null: false
     t.integer "item_scheduled_delivery_id", null: false
     t.integer "item_price", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_items_on_user_id"
@@ -70,10 +70,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_053028) do
     t.string "addresses", null: false
     t.string "building", null: false
     t.string "phone_number", null: false
-    t.bigint "purchases_id", null: false
+    t.bigint "purchase_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["purchases_id"], name: "index_shipments_on_purchases_id"
+    t.index ["purchase_id"], name: "index_shipments_on_purchase_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
@@ -99,5 +99,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_053028) do
   add_foreign_key "items", "users"
   add_foreign_key "purchases", "items"
   add_foreign_key "purchases", "users"
-  add_foreign_key "shipments", "purchases", column: "purchases_id"
+  add_foreign_key "shipments", "purchases"
 end
