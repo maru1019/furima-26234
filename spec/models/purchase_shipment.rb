@@ -62,14 +62,15 @@ RSpec.describe PurchaseShipment, type: :model do
         expect(@purchase_shipment.errors.full_messages).to include("Phone number is too short")
       end
       it 'userが紐付いていないと保存できないこと' do
-        @purchase_shipment.user = nil
+        @purchase_shipment.user_id = nil
         @purchase_shipment.valid?
-        expect(@purchase_shipment.errors.full_messages).to include("User must exist")
+        expect(@purchase_shipment.errors.full_messages).to include("User can't be blank")
       end
       it 'itemが紐付いていないと保存できないこと' do
-        @purchase_shipment.item = nil
+        @purchase_shipment.item_id = nil
         @purchase_shipment.valid?
-        expect(@purchase_shipment.errors.full_messages).to include("Item must exist")
+        binding.pry
+        expect(@purchase_shipment.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
