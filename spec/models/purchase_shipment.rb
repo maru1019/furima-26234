@@ -29,7 +29,7 @@ RSpec.describe PurchaseShipment, type: :model do
         expect(@purchase_shipment.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'prefecture_idを選択していないと保存できないこと' do
-        @purchase_shipment.prefecture_id = 0
+        @purchase_shipment.prefecture_id = 1
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include("Prefecture can't be blank")
       end

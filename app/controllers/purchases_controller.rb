@@ -1,5 +1,7 @@
 class PurchasesController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!
+  before_action :set_item, only: [:index, :create]
+  before_action :redirect_seller, only: [:index, :create]
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
@@ -35,6 +37,14 @@ class PurchasesController < ApplicationController
       :building,
       :phone_number
     ).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def redirect_seller
+    redirect_to root_path if @item.purchase.present? || current_user.id == @item.user_id 
   end
 
   def pay_item
