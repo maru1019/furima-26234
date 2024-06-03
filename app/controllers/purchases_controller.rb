@@ -5,7 +5,6 @@ class PurchasesController < ApplicationController
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-    @item = Item.find(params[:item_id])
     @purchase_shipment = PurchaseShipment.new
   end
 
@@ -15,7 +14,6 @@ class PurchasesController < ApplicationController
 
   def create
     @purchase_shipment = PurchaseShipment.new(purchases_params)
-    @item = Item.find(params[:item_id])
     if @purchase_shipment.valid?
       pay_item
       @purchase_shipment.save

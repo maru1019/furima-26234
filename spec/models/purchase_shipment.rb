@@ -53,8 +53,8 @@ RSpec.describe PurchaseShipment, type: :model do
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include('Phone number is invalid. input only number')
       end
-      it 'phone_numberが11桁未満だと保存できないこと' do
-        @purchase_shipment.phone_number = '0123456789'
+      it 'phone_numberが9桁以下12桁以上だと保存できないこと' do
+        @purchase_shipment.phone_number = '123456789'
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include('Phone number is too short')
       end
