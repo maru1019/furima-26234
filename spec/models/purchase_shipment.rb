@@ -56,7 +56,12 @@ RSpec.describe PurchaseShipment, type: :model do
       it 'phone_numberが9桁以下12桁以上だと保存できないこと' do
         @purchase_shipment.phone_number = '123456789'
         @purchase_shipment.valid?
-        expect(@purchase_shipment.errors.full_messages).to include('Phone number is too short')
+        expect(@purchase_shipment.errors.full_messages).to include('Phone number is too short (minimum is 10 characters)')
+      end
+      it 'phone_numberが9桁以下12桁以上だと保存できないこと' do
+        @purchase_shipment.phone_number = '012345678901'
+        @purchase_shipment.valid?
+        expect(@purchase_shipment.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
       end
       it 'userが紐付いていないと保存できないこと' do
         @purchase_shipment.user_id = nil
