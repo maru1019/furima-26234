@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    return unless !user_signed_in? || @item.user_id != current_user.id # || @item.sold_out?
+    return unless current_user != @item.user || @item.purchase.present?
     redirect_to root_path
   end
 
@@ -36,11 +36,10 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    unless current_user.id != @item.user_id
-      @item.destroy
-    end
+    @item.destroy unless current_user.id != @item.user_id
     redirect_to root_path
   end
+
   private
 
   def item_params
