@@ -1,19 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe PurchaseShipment, type: :model do
-
   before do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item, user: @user)
     @purchase_shipment = FactoryBot.build(:purchase_shipment, user_id: @user.id, item_id: @item.id)
   end
   describe '購入情報の保存' do
-
     context '内容に問題ない場合' do
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@purchase_shipment).to be_valid
       end
-      
       it 'buildingは空でも保存できること' do
         @purchase_shipment.building = ''
         expect(@purchase_shipment).to be_valid
@@ -29,7 +26,7 @@ RSpec.describe PurchaseShipment, type: :model do
       it 'post_codeが3桁ハイフン4桁の半角文字列以外は保存できないこと' do
         @purchase_shipment.post_code = '1234-123'
         @purchase_shipment.valid?
-        expect(@purchase_shipment.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@purchase_shipment.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'prefecture_idを選択していないと保存できないこと' do
         @purchase_shipment.prefecture_id = 0
@@ -54,12 +51,12 @@ RSpec.describe PurchaseShipment, type: :model do
       it 'phone_numberが半角数値以外だと保存できないこと' do
         @purchase_shipment.phone_number = 'TEL'
         @purchase_shipment.valid?
-        expect(@purchase_shipment.errors.full_messages).to include("Phone number is invalid. input only number")
+        expect(@purchase_shipment.errors.full_messages).to include('Phone number is invalid. input only number')
       end
       it 'phone_numberが11桁未満だと保存できないこと' do
         @purchase_shipment.phone_number = '0123456789'
         @purchase_shipment.valid?
-        expect(@purchase_shipment.errors.full_messages).to include("Phone number is too short")
+        expect(@purchase_shipment.errors.full_messages).to include('Phone number is too short')
       end
       it 'userが紐付いていないと保存できないこと' do
         @purchase_shipment.user_id = nil
@@ -69,8 +66,12 @@ RSpec.describe PurchaseShipment, type: :model do
       it 'itemが紐付いていないと保存できないこと' do
         @purchase_shipment.item_id = nil
         @purchase_shipment.valid?
-        binding.pry
         expect(@purchase_shipment.errors.full_messages).to include("Item can't be blank")
+      end
+      it 'tokenが空では登録できないこと' do
+        @purchase_shipment.token = nil
+        @purchase_shipment.valid?
+        expect(@purchase_shipment.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
